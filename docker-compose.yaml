@@ -1,0 +1,22 @@
+services:
+  next:
+    container_name: nexus-next
+    build:
+      context: ../nexus-app
+      args:
+        build_env: development
+    ports:
+      - "3000:3000"
+  db:
+    container_name: nexus-db
+    image: mysql:5.7
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD: somethingThatIsNotRoot$$21
+      MYSQL_DATABASE: nexus
+      MYSQL_USER: nexus
+      MYSQL_PASSWORD: nexus
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
